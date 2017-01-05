@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Sistema Controle de Horas</title>
+    </h:head>
+    <h:body>
+         <p:growl id="mensagem"  />
+        
+            <div id = "geral">
+                <div id = "top"  >
+                    <p:graphicImage library="img" name="marmita.png" style="padding: 5px; margin-right: 20px; float: left; display: block; width: 90px; height: 40px;"/>
+                    <h1 style="color: #ffffff;background-color: #D20005; border-radius: 8px; border: 1px #000000; padding: 5px; ">Controle de Horas<span style="font-size: 14px;"></span></h1>
+                    
+                </div>
+               
+                <div id = "cabecalho">
+                    <h:form>  
+                        <p:growl id="messages"/>
+
+                        <p:menubar style="margin-bottom: 10px;">
+                            <p:menuitem value="Ínicio" url="index.xhtml" icon="ui-icon-home" />
+                      
+                            <p:submenu label="Controle">
+                                <p:menuitem value="Cliente" url="cliente.xhtml" />
+                                <p:menuitem value="Entregador" url="entregador.xhtml" />
+                                <p:menuitem value="Empresa" url="empresa.xhtml" />
+                                <p:menuitem value="Funcionario" url="funcionario.xhtml" />
+                                <p:menuitem value="Produto" url="produto.xhtml" />
+                            </p:submenu>
+                            
+                            <p:submenu label="Pedido">
+                                <p:menuitem value="Cadastrar" url="pedido.xhtml" />
+                                <p:menuitem value="Consultar" url="consultarPedido.xhtml" />
+                            </p:submenu>
+
+                            <p:submenu label="Sobre">
+                                
+                            </p:submenu>
+
+                            <p:menuitem value="Sair" icon="ui-icon-close" />
+                        </p:menubar>
+                    </h:form>
+                </div>
+
+                <div id = "conteudo">
+                    <ui:insert name="conteudo"/>
+                </div>
+                <div id="footer">
+                    <h5 style="text-align: center; color: #ffffff;background-color: #D20005; border-radius: 8px; border: 1px #000000; padding: 5px;">&copy; Copyright 2016 RochaSystem_CCo.</h5>
+                </div>
+
+            </div>
+        
+    </h:body>
+</html>
+
