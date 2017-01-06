@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/templates/modelo.xhtml">
+
+
+    <ui:define name="conteudo">
+
+        <h:form id="form_funcionario">   
+
+            <p:panel header="Lista - Funcionario">
+                <p:dataTable id = "dataTable" value="#{funcionarioBean.listaObjetos}" var="funcionario" 
+                             emptyMessage="Nenhum Registro Encotrado com esta pesquisa" paginator="true" paginatorPosition="top"  rows="8" style="font-size: 11pt"><br />
+                    <f:facet name="header" >
+                        <p:commandButton value = "Novo" update=":form_dialago:painel_dialago" action="#{funcionarioBean.novo()}" oncomplete="PF('dialago').show();"  ></p:commandButton>
+                    </f:facet>
+                    <p:column headerText="Cód." width="60">
+                        <h:outputText value="#{funcionario.matricula}" />
+                    </p:column>
+                    <p:column headerText="Nome" sortBy="#{funcionario.nome}" filterBy="#{funcionario.nome}" filterMatchMode="contains">
+                        <h:outputText value="#{funcionario.nome}" />
+                    </p:column>
+                    <p:column headerText="Nome Guerra" sortBy="#{funcionario.nomeGuerra}" filterBy="#{funcionario.nomeGuerra}" filterMatchMode="contains">
+                        <h:outputText value="#{funcionario.nomeGuerra}" />
+                    </p:column>
+                    <p:column headerText="Cargo">
+                        <h:outputText value="#{funcionario.cargo}" />
+                    </p:column>
+                    <p:column headerText="Turno Padrão">
+                        <h:outputText value="#{funcionario.turno.nome}" />
+                    </p:column>
+                    <p:column headerText="Situação">
+                        <h:outputText value="#{funcionario.situacao}" />
+                    </p:column>
+
+                    <p:column headerText="" width="35">
+                        <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dialago').show();" action="#{funcionarioBean.carregarDadosEditar(funcionario)}" update=":form_dialago:painel_dialago :form_funcionario"></p:commandButton>
+                    </p:column>
+                    <p:growl id="message" showDetail="true" />
+                    <p:column headerText="" width="35">
+                        <p:commandButton icon="ui-icon-trash" actionListener="#{funcionarioBean.excluir(funcionario)}" update=":form_funcionario :mensagem">
+                            <p:confirm header="Confirmação" message="Deseja Excluir?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                    </p:column> 
+                    <f:facet name="footer">
+                        <h:outputText value="Existem " />
+                        <h:outputText value="#{fn:length(funcionarioBean.listaObjetos)}" />
+                        <h:outputText value=" pessoas cadastradas. " />  
+                    </f:facet>
+
+                </p:dataTable>
+                <p:confirmDialog global="true">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </p:panel>
+        </h:form>
+
+        <p:dialog widgetVar="dialago" closable="false" modal="true" header="Controle de Funconario" resizable="false">
+            <h:form id="form_dialago">
+
+                <h:panelGrid id="painel_dialago" columns="2">
+                    <h:outputLabel>Matrícula: <p:inputText id="matricula" value="#{funcionarioBean.funcionario.matricula}" /></h:outputLabel>
+                    <h:outputLabel>Nome: <p:inputText id="nome" value="#{funcionarioBean.funcionario.nome}" /></h:outputLabel>
+                    <h:outputLabel>Nome Guerra: <p:inputText id="nomeGuerra" value="#{funcionarioBean.funcionario.nomeGuerra}"  /></h:outputLabel>
+                    <h:outputLabel>Turno Padrão: 
+                        <p:selectOneMenu id="combobox_turno"  value="#{funcionarioBean.funcionario.turno}" converter="turnoConverter">
+                            <f:selectItem itemLabel="Selecione um Item" />
+                            <f:selectItems value="#{funcionarioBean.listaTurnos}"  var="Turno" itemValue="#{Turno}" itemLabel="#{Turno.nome}" />                              
+                        </p:selectOneMenu>
+                    </h:outputLabel>
+                    <h:outputLabel>Cargo: 
+                        <p:selectOneMenu id="combobox_cargo"  value="#{funcionarioBean.funcionario.cargo}" >
+                            <f:selectItem itemLabel="Selecione um Item" />
+                            <f:selectItems value="#{funcionarioBean.cargo}"  var="Cargo" itemValue="#{Cargo}" itemLabel="#{Cargo.nome}"/>           
+                        </p:selectOneMenu>
+                    </h:outputLabel>
+                    <h:outputLabel>Situação: 
+                        <p:selectOneMenu id="combobox_situacao"  value="#{funcionarioBean.funcionario.situacao}" >
+                            <f:selectItem itemLabel="Selecione um Item" />
+                            <f:selectItems value="#{funcionarioBean.situacao}"  var="Situacao" itemValue="#{Situacao}" itemLabel="#{Situacao.nome}"/>           
+                        </p:selectOneMenu>
+                    </h:outputLabel>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+
+                    <p:commandButton value="Salvar" id="salvar" actionListener="#{funcionarioBean.salvar()}"  oncomplete="PF('dialago').hide()" update=":form_funcionario :mensagem" />
+                    <p:commandButton value="Fechar" id="fechar" actionListener="#{funcionarioBean.novo()}" oncomplete="PF('dialago').hide()" />
+                </h:panelGrid>
+            </h:form>
+
+        </p:dialog>
+    </ui:define>
+</ui:composition>
+
+
