@@ -7,7 +7,9 @@ package Teste;
 
 import br.com.controlehoras.dao.FuncionarioDao;
 import br.com.controlehoras.modelo.Funcionario;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -16,6 +18,21 @@ import org.junit.Test;
  * @author Tardeli
  */
 public class FuncionarioTeste {
+
+    @Test
+    public void lerListaFuncionarioOrdenada() {
+        FuncionarioDao funcionarioDao = new FuncionarioDao();
+        List<Funcionario> funcionarios = new ArrayList<>();
+        funcionarios = funcionarioDao.listarObjetosCriterios();
+
+        for (Funcionario funcionario : funcionarios) {
+            System.out.println("-------------------------------------");
+            System.out.println(funcionario.toString());
+            System.out.println("-------------------------------------");
+        }
+
+    }
+
     @Test
     @Ignore
     public void buscarFuncionario() {
@@ -27,22 +44,23 @@ public class FuncionarioTeste {
         System.out.println("-------------------------------------");
 
     }
-       
+
     @Test
     @Ignore
-    public void cadastrar(){
+    public void cadastrar() {
         Funcionario objeto = new Funcionario();
         FuncionarioDao funcionarioDao = new FuncionarioDao();
         objeto.setNome("Altobeli da Rocha");
-        
-        funcionarioDao.salvarOuAtualizarObjeto(objeto);    
-   }
-    
+
+        funcionarioDao.salvarOuAtualizarObjeto(objeto);
+    }
+
     @Test
-    public void autenticarLogin(){
+    @Ignore
+    public void autenticarLogin() {
         FuncionarioDao funcionarioDao = new FuncionarioDao();
         //boolean resultado = funcionarioDao.autenticarLogin("rocha", "");
         //System.out.println(resultado);
     }
-    
+
 }

@@ -5,43 +5,41 @@
  */
 package br.com.controlehoras.converter;
 
-import br.com.controlehoras.modelo.Turno;
-import br.com.controlehoras.dao.TurnoDao;
+import br.com.controlehoras.dao.FuncionarioDao;
+import br.com.controlehoras.modelo.Funcionario;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.FacesConverter;
 import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 
 /**
  *
  * @author Tardeli
  */
-@FacesConverter("turnoConverter")
-public class TurnoConverter implements Converter{
+@FacesConverter(value = "funcionarioPickListConverter")
+public class funcionarioPickListConverter implements Converter {
 
-    //usando quando é clicado na caixa de seleção- Monta objeto apartir do ID selecionado
-    @Override 
+    @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         try {
             Long codigo = Long.parseLong(value);
-            TurnoDao turnoDao = new TurnoDao();
-            Turno objeto = turnoDao.buscarObjeto(codigo);
+            FuncionarioDao funcionarioDao = new FuncionarioDao();
+            Funcionario objeto = funcionarioDao.buscarObjeto(codigo);
             return objeto;
         } catch (RuntimeException ex) {
             return null;
-        }    
+        }
     }
 
-    //recebe o objeto e retorna o Id em string
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         try {
-            Turno turno = (Turno) value;
-            Long codigo = turno.getCodigo();
+            Funcionario funcionario = (Funcionario) value;
+            Long codigo = funcionario.getMatricula();
             return codigo.toString();
         } catch (RuntimeException ex) {
             return null;
         }
     }
-    
+
 }

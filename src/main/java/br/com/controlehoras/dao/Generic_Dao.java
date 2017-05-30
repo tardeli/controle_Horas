@@ -29,6 +29,7 @@ public class Generic_Dao<Entidade>{
             sessao = (Session) HibernateUtil.getSessionFactory().openSession();
             transacao = sessao.beginTransaction();
             sessao.saveOrUpdate(entidade);
+            //sessao.flush();
             transacao.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,7 +54,9 @@ public class Generic_Dao<Entidade>{
     public List<Entidade> listarObjetos(){
         try {
             sessao = (Session) HibernateUtil.getSessionFactory().openSession();
-            Criteria criteria = sessao.createCriteria(classe);
+            
+            Criteria criteria = sessao.createCriteria(classe); 
+            
             return criteria.list();
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,5 +80,6 @@ public class Generic_Dao<Entidade>{
             sessao.close();
         } 
     }
+    
     
 }

@@ -18,13 +18,20 @@ import org.omnifaces.util.Messages;
 @SessionScoped
 public class TurnoBean implements Serializable {
 
-    private Turno turno;
+    private Turno turno = new Turno();
     private TurnoDao turnoDao = new TurnoDao();
     private List<Turno> listaObjetos = new ArrayList<>();
-              
+
+    public TurnoBean() {
+        this.getListaObjetos();
+    }
+    
+    
+    
     public void novo() {
         this.turno = new Turno();
     }
+    
 
 
     public String salvar() {

@@ -9,13 +9,15 @@ package br.com.controlehoras.enumeradores;
  *
  * @author Tardeli
  */
-public enum Situacao {
-    Ativo("Ativo"),
-    Inativo("Inativo");
+public enum NomeStatus {
+    Ferias("Ferias"),
+    Atestado("Atestado"),
+    Licenca("Licenca"),
+    Compensacao("Compensacao");
     
     private final String nome;
-  
-    private Situacao(String nome) {
+
+    private NomeStatus(String nome) {
         this.nome = nome;
     }
 

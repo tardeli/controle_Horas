@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import org.omnifaces.util.Messages;
 
 /**
@@ -26,12 +27,12 @@ public class FuncionarioBean implements Serializable {
     private List<Funcionario> listaObjetos = new ArrayList<>();
     private List<Turno> listaTurnos = new ArrayList<>();
     private TurnoDao turnoDao = new TurnoDao();
-    
+       
     private Cargo[] cargo;
     private Situacao[] situacao;
         
     public FuncionarioBean() {
-        this.getListaObjetos();
+        this.getListaObjetos();        
     }
        
     public void novo() {
@@ -40,21 +41,24 @@ public class FuncionarioBean implements Serializable {
 
 
     public String salvar() {
-//        Funcionario f = funcionarioDao.buscarObjeto(this.funcionario.getMatricula());
-//        if (f==null) {
+      
+        Funcionario f = funcionarioDao.buscarObjeto(this.funcionario.getMatricula());
+     
+        if (f==null) {
             funcionarioDao.salvarOuAtualizarObjeto(this.funcionario);
             getListaObjetos();
             Messages.addGlobalInfo("Salvo com sucesso!");
             this.funcionario = new Funcionario();
             return "erro";
-//        } 
-//        else {
-//            funcionarioDao.salvarOuAtualizarObjeto(this.funcionario);
-//            getListaObjetos();
-//            Messages.addGlobalInfo("Atualizado com Sucesso!");
-//            this.funcionario = new Funcionario();
-//            return "erro.xhtml";
-//        }
+        } 
+        else {
+            funcionarioDao.salvarOuAtualizarObjeto(this.funcionario);
+            getListaObjetos();
+            Messages.addGlobalInfo("Atualizado com Sucesso!");
+            this.funcionario = new Funcionario();
+            return "erro.xhtml";
+        }
+        
     }
 
     public void excluir(Funcionario c) {
@@ -64,7 +68,7 @@ public class FuncionarioBean implements Serializable {
         getListaObjetos();
         this.funcionario = new Funcionario();
     }
-
+    
     public void carregarDadosEditar(Funcionario c) {
         this.funcionario = c;
     }
@@ -81,7 +85,7 @@ public class FuncionarioBean implements Serializable {
     }
    
     public List<Funcionario> getListaObjetos() {
-        return listaObjetos = funcionarioDao.listarObjetos();
+        return listaObjetos = funcionarioDao.listarObjetosCriterios();
     }
 
     public void setListaObjetos(List<Funcionario> listaObjetos) {
@@ -112,6 +116,4 @@ public class FuncionarioBean implements Serializable {
         this.situacao = situacao;
     }
     
-    
-
 }

@@ -8,14 +8,31 @@
 
 
     <ui:define name="conteudo">
-
+        <div class="row">
+            <div class="col-md-9 div_1">
+                <h1>Teste com BootStrap</h1>
+            </div>
+            <div class="col-md-3 div_2">
+                <h:form>   
+                    <p:button value="Salvar" class="btn btn-danger"/>
+                </h:form>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-3 div_2">
+                <h:form>   
+                    <p:button value="Salvar" class="btn btn-danger"/>
+                </h:form>
+            </div>
+        </div>
         <h:form id="form_inicial">   
 
             <p:panel header="PÁGINA INICIAL">
                 <p:graphicImage library="img" name="relogio-ponto.png" style=" width: 1295px; height: 382px; display: block; opacity: 0.1"/>
             </p:panel>
         </h:form>
-        
+
     </ui:define>
 </ui:composition>
 

@@ -1,0 +1,1 @@
+select f.nomeGuerra from Funcionario f where f.situacao='ativo' and f.turno.nome='t1' order by nomeGuerra asc

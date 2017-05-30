@@ -1,32 +1,45 @@
 package br.com.controlehoras.dao;
 
+import br.com.controlehoras.modelo.Escala;
 import br.com.controlehoras.modelo.ItemEscala;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
+import br.com.controlehoras.util.HibernateUtil;
 import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.omnifaces.util.Messages;
 
 
 /**
  *
  * @author Tardeli
  */
-public class ItemEscalaDao extends Generic_Dao<ItemEscala> implements Serializable{
-    public List<ItemEscala> buscarItensPedido(Date data) {
-
-        List<ItemEscala> listaTemporaria = listarObjetos();
-        List<ItemEscala> itensPedido = new ArrayList<>();
-
+public class ItemEscalaDao extends Generic_Dao<ItemEscala>{
+    private Session sessao;
+    private Transaction transacao;
+    
+    public void salvar(Long codigo, List<ItemEscala> itensEscala) {
+        sessao = (Session) HibernateUtil.getSessionFactory().openSession();
         try {
-            for (ItemEscala itemEscala : listaTemporaria) {
-                if (itemEscala.getEscala().getData().equals(data)) {
-                    itensPedido.add(itemEscala);
+            transacao = sessao.beginTransaction();
+            EscalaDao escalaDao = new EscalaDao();
+            Escala escala = escalaDao.buscarObjeto(codigo);
+            
+            if(escala==null){
+                Messages.addGlobalInfo("Erro");
+            }else{
+                for (ItemEscala item : itensEscala) {
+                    item.setEscala(escala);
+                    ItemEscalaDao itemEscalaDao = new ItemEscalaDao();
+                    itemEscalaDao.salvarOuAtualizarObjeto(item);
                 }
+                Messages.addGlobalInfo("Itens Salvos com sucesso!");
             }
-            return itensPedido;
+            transacao.commit();
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+        } finally {
+            sessao.close();
         }
+        
     }
 }

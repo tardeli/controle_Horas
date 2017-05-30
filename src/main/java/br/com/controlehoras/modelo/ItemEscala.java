@@ -2,11 +2,15 @@ package br.com.controlehoras.modelo;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -14,19 +18,29 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ItemEscala")
-public class ItemEscala implements Serializable{
-    
+public class ItemEscala implements Serializable {
+
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long codigo;
     @ManyToOne
     @JoinColumn(nullable = false)
     private Escala escala;
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = true)
     private Funcionario funcionario;
     @ManyToOne
-    @JoinColumn(nullable = false)  
+    @JoinColumn(nullable = true)
     private Turno turno;
+
+    public ItemEscala() {
+      
+    }
+
+    @PostConstruct
+    public void init() {
+        turno = new Turno();
+    }
 
     public Long getCodigo() {
         return codigo;
@@ -52,6 +66,7 @@ public class ItemEscala implements Serializable{
         this.funcionario = funcionario;
     }
 
+    @NotNull(message = "Selecione um turno")
     public Turno getTurno() {
         return turno;
     }
@@ -89,7 +104,5 @@ public class ItemEscala implements Serializable{
     public String toString() {
         return "ItemEscala{" + "codigo=" + codigo + ", escala=" + escala + ", funcionario=" + funcionario + ", turno=" + turno + '}';
     }
-    
-    
-    
+
 }

@@ -65,7 +65,7 @@
             <h:form id="form_dialago">
 
                 <h:panelGrid id="painel_dialago" columns="2">
-                    <h:outputLabel>Matrícula: <p:inputText id="matricula" value="#{funcionarioBean.funcionario.matricula}" /></h:outputLabel>
+                    <h:outputLabel>Matrícula: <p:inputMask mask="" id="matricula" value="#{funcionarioBean.funcionario.matricula}"/></h:outputLabel>
                     <h:outputLabel>Nome: <p:inputText id="nome" value="#{funcionarioBean.funcionario.nome}" /></h:outputLabel>
                     <h:outputLabel>Nome Guerra: <p:inputText id="nomeGuerra" value="#{funcionarioBean.funcionario.nomeGuerra}"  /></h:outputLabel>
                     <h:outputLabel>Turno Padrão: 
@@ -89,7 +89,7 @@
                 </h:panelGrid>
                 <h:panelGrid columns="2">
 
-                    <p:commandButton value="Salvar" id="salvar" actionListener="#{funcionarioBean.salvar()}"  oncomplete="PF('dialago').hide()" update=":form_funcionario :mensagem" />
+                    <p:commandButton value="Salvar" id="salvar" actionListener="#{funcionarioBean.salvar()}"  update="@form :form_funcionario :mensagem" />
                     <p:commandButton value="Fechar" id="fechar" actionListener="#{funcionarioBean.novo()}" oncomplete="PF('dialago').hide()" />
                 </h:panelGrid>
             </h:form>

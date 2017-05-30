@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 /**
  *
  * @author Tardeli
@@ -28,6 +29,12 @@ public class Turno implements Serializable{
     private Date horaFinal;
     @Temporal(TemporalType.TIME)
     private Date horasTrabalhadas;
+//    @OneToMany(mappedBy = "turno", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    private List<Funcionario> funcionarios = new ArrayList<>();
+
+    public Turno() {
+    }
+    
 
     public Long getCodigo() {
         return codigo;
@@ -68,7 +75,7 @@ public class Turno implements Serializable{
     public void setHorasTrabalhadas(Date horasTrabalhadas) {
         this.horasTrabalhadas = horasTrabalhadas;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -94,10 +101,5 @@ public class Turno implements Serializable{
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Turno{" + "codigo=" + codigo + ", nome=" + nome + ", horaInicio=" + horaInicio + ", horaFinal=" + horaFinal + ", horasTrabalhadas=" + horasTrabalhadas + '}';
-    }
-    
     
 }

@@ -1,10 +1,15 @@
 package br.com.controlehoras.modelo;
 
+import br.com.controlehoras.enumeradores.NomeStatus;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,12 +22,16 @@ import javax.persistence.TemporalType;
 @Table(name = "Status")
 public class Status implements Serializable{
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long codigo;
-    private String nome;
+    private NomeStatus status ;
     @Temporal(TemporalType.DATE)
     private Date dataInicio;
     @Temporal(TemporalType.DATE)
     private Date dataFinal;
+    @ManyToOne
+    @JoinColumn(nullable = true)
+    private Funcionario funcionario;
 
     public Long getCodigo() {
         return codigo;
@@ -32,12 +41,12 @@ public class Status implements Serializable{
         this.codigo = codigo;
     }
 
-    public String getNome() {
-        return nome;
+    public NomeStatus getStatus() {
+        return status;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setStatus(NomeStatus status) {
+        this.status = status;
     }
 
     public Date getDataInicio() {
@@ -55,6 +64,16 @@ public class Status implements Serializable{
     public void setDataFinal(Date dataFinal) {
         this.dataFinal = dataFinal;
     }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+    
+    
 
     @Override
     public int hashCode() {
@@ -83,8 +102,6 @@ public class Status implements Serializable{
 
     @Override
     public String toString() {
-        return "Status{" + "codigo=" + codigo + ", nome=" + nome + ", dataInicio=" + dataInicio + ", dataFinal=" + dataFinal + '}';
+        return "Status{" + "codigo=" + codigo + ", status=" + status + ", dataInicio=" + dataInicio + ", dataFinal=" + dataFinal + ", funcionario=" + funcionario + '}';
     }
-    
-    
 }

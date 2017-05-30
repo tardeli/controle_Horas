@@ -16,6 +16,5 @@
     <mapping class="br.com.controlehoras.modelo.ItemEscala"/>
     <mapping class="br.com.controlehoras.modelo.Status"/>
     <mapping class="br.com.controlehoras.modelo.Turno"/>
-    
   </session-factory>
 </hibernate-configuration>
